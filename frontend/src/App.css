@@ -1,4 +1,3 @@
-/* Paleta de Colores de Figma */
 :root {
   --figma-dark-blue: #0C4775;
   --figma-hover-blue: #09385c;
@@ -23,14 +22,13 @@ body, #root {
   background-color: var(--figma-light-bg);
 }
 
-/* Layout Principal de Escritorio */
 .web-app-container {
   display: flex;
   width: 100vw;
   height: 100vh;
 }
 
-/* Sidebar Lateral */
+/* Sidebar */
 .sidebar {
   width: 260px;
   background-color: var(--figma-dark-blue);
@@ -46,10 +44,13 @@ body, #root {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 24px;
-  font-weight: bold;
-  padding: 0 12px 24px 12px;
+  padding: 8px 12px 20px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-logo-img {
+  height: 38px;
+  object-fit: contain;
 }
 
 .nav-menu {
@@ -113,7 +114,7 @@ body, #root {
   font-weight: bold;
 }
 
-/* Área Principal de Contenido */
+/* Área Principal */
 .main-wrapper {
   flex: 1;
   display: flex;
@@ -148,7 +149,6 @@ body, #root {
   margin: 0 auto;
 }
 
-/* Dashboard / Feed Layout */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -205,7 +205,6 @@ body, #root {
   font-weight: bold;
 }
 
-/* Tarjetas de Reportes Desktop */
 .report-card-web {
   background: white;
   border-radius: 16px;
@@ -245,19 +244,27 @@ body, #root {
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 6px;
-  width: fit-content;
 }
 
-/* Sidebar Derecho (Widgets/Estadísticas) */
 .widget-card {
   background: white;
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Formularios Web */
+.widget-bg-decor {
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 140px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
 .web-input {
   width: 100%;
   padding: 14px;
@@ -289,7 +296,7 @@ body, #root {
   background-color: var(--figma-hover-blue);
 }
 
-/* Pantalla de Autenticación Split-Screen (Escritorio) */
+/* Auth Split-Screen con Banner el_bueno.png */
 .auth-split-container {
   display: flex;
   width: 100vw;
@@ -298,14 +305,19 @@ body, #root {
 
 .auth-banner-side {
   flex: 1;
-  background-color: var(--figma-dark-blue);
-  color: white;
+  background: url('/images/el_bueno.png') no-repeat center center;
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   padding: 40px;
+  color: white;
   position: relative;
+}
+
+.auth-banner-footer {
+  font-size: 13px;
+  opacity: 0.75;
 }
 
 .auth-form-side {

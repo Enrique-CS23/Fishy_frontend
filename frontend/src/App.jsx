@@ -9,20 +9,23 @@ const INITIAL_REPORTS = [
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activeScreen, setActiveScreen] = useState('feed'); // feed, newReport, readings, settings, profile, editReport
-  const [authScreen, setAuthScreen] = useState('login'); // login, register, recover
+  const [activeScreen, setActiveScreen] = useState('feed');
+  const [authScreen, setAuthScreen] = useState('login');
   const [showResetAlert, setShowResetAlert] = useState(false);
 
   if (!isLoggedIn) {
     return (
       <div className="auth-split-container">
-        {/* Banner Lateral Izquierdo */}
+        {/* Banner Lateral Izquierdo usando el_bueno.png */}
         <div className="auth-banner-side">
-          <div style={{ fontSize: '72px', marginBottom: '16px' }}>🐟</div>
-          <h1 style={{ fontSize: '36px', fontWeight: 'bold' }}>Fishy Web</h1>
-          <p style={{ fontSize: '16px', opacity: 0.8, marginTop: '8px', textAlign: 'center', maxWidth: '380px' }}>
-            La plataforma comunitaria para la prevención, detección y reporte de fraudes digitales y phishing.
-          </p>
+          <div>
+            <p style={{ fontSize: '18px', opacity: 0.9, marginTop: '20px', maxWidth: '380px' }}>
+              La plataforma comunitaria para la prevención, detección y reporte de fraudes digitales.
+            </p>
+          </div>
+          <div className="auth-banner-footer">
+            © 2026 Fishy from Equipo3
+          </div>
         </div>
 
         {/* Formulario Derecho */}
@@ -95,12 +98,11 @@ export default function App() {
 
   return (
     <div className="web-app-container">
-      {/* Sidebar Izquierda */}
+      {/* Sidebar Izquierda con Logo de Diseño */}
       <aside className="sidebar">
         <div>
           <div className="brand-header">
-            <span>🐟</span>
-            <span>Fishy</span>
+            <img src="/images/el_bueno.png" alt="Fishy Logo" className="brand-logo-img" />
           </div>
 
           <nav className="nav-menu">
@@ -119,7 +121,6 @@ export default function App() {
           </nav>
         </div>
 
-        {/* Perfil en la parte inferior de la Sidebar */}
         <div className="sidebar-user">
           <div className="user-info" style={{ cursor: 'pointer' }} onClick={() => setActiveScreen('profile')}>
             <div className="user-avatar">U</div>
@@ -134,7 +135,7 @@ export default function App() {
         </div>
       </aside>
 
-      {/* Área de Contenido Principal */}
+      {/* Área de Contenido */}
       <main className="main-wrapper">
         <header className="top-bar">
           <h2 className="page-title">
@@ -143,7 +144,6 @@ export default function App() {
             {activeScreen === 'readings' && 'Módulos de Aprendizaje y Prevención'}
             {activeScreen === 'settings' && 'Ajustes del Sistema'}
             {activeScreen === 'profile' && 'Perfil de Usuario'}
-            {activeScreen === 'editReport' && 'Editar Reporte'}
           </h2>
           <button className="btn-primary-web" style={{ padding: '8px 16px', fontSize: '13px' }} onClick={() => setActiveScreen('newReport')}>
             + Publicar Alerta
@@ -157,7 +157,6 @@ export default function App() {
             {activeScreen === 'newReport' && <NewReportWeb setActiveScreen={setActiveScreen} />}
             {activeScreen === 'settings' && <SettingsWeb />}
             {activeScreen === 'profile' && <ProfileWeb setIsLoggedIn={setIsLoggedIn} setActiveScreen={setActiveScreen} />}
-            {activeScreen === 'editReport' && <EditReportWeb setActiveScreen={setActiveScreen} />}
           </div>
         </div>
       </main>
@@ -165,15 +164,12 @@ export default function App() {
   );
 }
 
-// Componentes del Dashboard
-
 function MainFeedWeb() {
   const [selectedFilter, setSelectedFilter] = useState('Todos');
   const filtros = ['Todos', 'SMS', 'URL', 'Email', 'WhatsApp'];
 
   return (
     <div className="dashboard-grid">
-      {/* Columna Principal: Buscador y Lista de Reportes */}
       <div>
         <div className="search-filter-card">
           <div className="search-bar-web">
@@ -213,15 +209,14 @@ function MainFeedWeb() {
             <div style={{ display: 'flex', gap: '20px', fontSize: '13px', color: '#6b7280' }}>
               <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#4b5563' }}>👍 {r.mePaso} Me pasó igual</button>
               <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#4b5563' }}>💬 {r.comentarios} Comentarios</button>
-              <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#4b5563', marginLeft: 'auto' }}>🔗 Compartir</button>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Columna Derecha: Widgets de Información */}
       <div>
         <div className="widget-card">
+          <img src="/images/image.png" alt="Decoración" className="widget-bg-decor" />
           <h4 style={{ fontSize: '15px', marginBottom: '12px' }}>📊 Estadísticas de la Comunidad</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}>
@@ -229,7 +224,7 @@ function MainFeedWeb() {
               <span style={{ fontWeight: 'bold', color: 'var(--figma-dark-blue)' }}>128</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}>
-              <span>Modalidad más común:</span>
+              <span>Modalidad común:</span>
               <span style={{ fontWeight: 'bold', color: '#d97706' }}>SMS / Paquetería</span>
             </div>
           </div>
@@ -319,51 +314,25 @@ function SettingsWeb() {
           <span>Notificaciones por correo</span>
           <input type="checkbox" defaultChecked />
         </div>
-        <div style={{ padding: '16px', background: 'var(--figma-field-bg)', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>Autenticación de dos factores (2FA)</span>
-          <button className="btn-primary-web" style={{ padding: '6px 12px', fontSize: '12px' }}>Configurar</button>
-        </div>
       </div>
     </div>
   );
 }
 
-function ProfileWeb({ setIsLoggedIn, setActiveScreen }) {
+function ProfileWeb({ setIsLoggedIn }) {
   return (
     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <div className="user-avatar" style={{ width: '80px', height: '80px', fontSize: '32px' }}>U</div>
         <div>
           <h2 style={{ fontSize: '24px' }}>Usuario Registrado</h2>
-          <p style={{ fontSize: '13px', color: '#6b7280' }}>Miembro desde Agosto 2026</p>
-        </div>
-      </div>
-
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <div className="widget-card" style={{ flex: 1, textAlign: 'center', background: 'var(--figma-field-bg)' }}>
-          <span style={{ fontSize: '28px', fontWeight: 'bold', color: 'var(--figma-dark-blue)' }}>3</span>
-          <p style={{ fontSize: '13px', color: '#6b7280' }}>Reportes Creados</p>
-        </div>
-        <div className="widget-card" style={{ flex: 1, textAlign: 'center', background: 'var(--figma-field-bg)' }}>
-          <span style={{ fontSize: '28px', fontWeight: 'bold', color: '#10b981' }}>15</span>
-          <p style={{ fontSize: '13px', color: '#6b7280' }}>Votos Útiles</p>
+          <p style={{ fontSize: '13px', color: '#6b7280' }}>Miembro desde 2026</p>
         </div>
       </div>
 
       <button style={{ background: 'var(--figma-light-red)', color: 'red', border: 'none', padding: '12px', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer', maxWidth: '200px' }} onClick={() => setIsLoggedIn(false)}>
         Cerrar Sesión
       </button>
-    </div>
-  );
-}
-
-function EditReportWeb({ setActiveScreen }) {
-  return (
-    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <h3>Editar Reporte</h3>
-      <input className="web-input" defaultValue="Falso recibo de compra en tienda en línea" />
-      <textarea className="web-input" style={{ height: '100px' }} defaultValue="Me llegó un SMS diciendo que mi paquete estaba retenido..."></textarea>
-      <button className="btn-primary-web" onClick={() => setActiveScreen('profile')}>Guardar Cambios</button>
     </div>
   );
 }
