@@ -1,3 +1,4 @@
+/* Paleta de Colores de Figma */
 :root {
   --figma-dark-blue: #0C4775;
   --figma-hover-blue: #09385c;
@@ -22,13 +23,64 @@ body, #root {
   background-color: var(--figma-light-bg);
 }
 
+/* Pantalla de Autenticación Split-Screen */
+.auth-split-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.auth-banner-side {
+  flex: 1;
+  background-color: var(--figma-dark-blue);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: white;
+  text-align: center;
+}
+
+.auth-banner-logo {
+  max-width: 360px;
+  width: 80%;
+  height: auto;
+  margin-bottom: 24px;
+  object-fit: contain;
+}
+
+.auth-banner-text {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 420px;
+  line-height: 1.6;
+}
+
+.auth-form-side {
+  width: 480px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.auth-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Layout Principal de la Web App */
 .web-app-container {
   display: flex;
   width: 100vw;
   height: 100vh;
 }
 
-/* Sidebar */
+/* Sidebar Lateral */
 .sidebar {
   width: 260px;
   background-color: var(--figma-dark-blue);
@@ -114,7 +166,7 @@ body, #root {
   font-weight: bold;
 }
 
-/* Área Principal */
+/* Área Principal de Contenido */
 .main-wrapper {
   flex: 1;
   display: flex;
@@ -149,6 +201,7 @@ body, #root {
   margin: 0 auto;
 }
 
+/* Dashboard / Feed */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -205,6 +258,7 @@ body, #root {
   font-weight: bold;
 }
 
+/* Tarjetas de Reportes Desktop */
 .report-card-web {
   background: white;
   border-radius: 16px;
@@ -246,6 +300,7 @@ body, #root {
   border-radius: 6px;
 }
 
+/* Widgets */
 .widget-card {
   background: white;
   border-radius: 16px;
@@ -261,10 +316,11 @@ body, #root {
   right: -20px;
   top: -20px;
   width: 140px;
-  opacity: 0.25;
+  opacity: 0.2;
   pointer-events: none;
 }
 
+/* Form Element Styles */
 .web-input {
   width: 100%;
   padding: 14px;
@@ -294,43 +350,4 @@ body, #root {
 
 .btn-primary-web:hover {
   background-color: var(--figma-hover-blue);
-}
-
-/* Auth Split-Screen con Banner el_bueno.png */
-.auth-split-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-}
-
-.auth-banner-side {
-  flex: 1;
-  background: url('/images/el_bueno.png') no-repeat center center;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 40px;
-  color: white;
-  position: relative;
-}
-
-.auth-banner-footer {
-  font-size: 13px;
-  opacity: 0.75;
-}
-
-.auth-form-side {
-  width: 480px;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-}
-
-.auth-form-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
