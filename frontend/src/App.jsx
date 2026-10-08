@@ -1,10 +1,48 @@
 import React, { useState } from 'react';
 import './App.css';
 
+// Importación directa de imágenes desde src/assets/
+import fishyLogo from './assets/fishy.png';
+import elBuenoLogo from './assets/el_bueno.png';
+import bgDecor from './assets/image.png';
+
 const INITIAL_REPORTS = [
-  { id: 1, inicial: 'A', color: '#00BCD4', autor: 'Anónimo', titulo: 'Falso SMS de paquetería retenida', descripcion: 'Me llegó un SMS diciendo que mi paquete estaba retenido en aduana y pedían $50 MXN para liberarlo. El enlace lleva a una página idéntica a Correos de México.', categoria: 'SMS', mePaso: 24, comentarios: 2, fecha: 'Hace 2 horas' },
-  { id: 2, inicial: 'N', color: '#2196F3', autor: 'Nophishing', titulo: 'Correo falso del Banco Santander', descripcion: 'Recibí un correo familiar que aparentemente era de mi banco, para notificarme que tenía un cargo retenido en mi tarjeta. Sabían mi nombre completo.', categoria: 'Email', mePaso: 48, comentarios: 5, fecha: 'Hace 5 horas' },
-  { id: 3, inicial: 'C', color: '#00BCD4', autor: 'Cass.Garcia', titulo: 'Oferta de trabajo fraudulenta por WhatsApp', descripcion: 'Un número desconocido con prefijo internacional me contactó ofreciéndome ganar $1,000 MXN diarios solo por darle "Like" a videos de YouTube.', categoria: 'WhatsApp', mePaso: 89, comentarios: 15, fecha: 'Ayer' },
+  { 
+    id: 1, 
+    inicial: 'A', 
+    color: '#00BCD4', 
+    autor: 'Anónimo', 
+    titulo: 'Falso SMS de paquetería retenida', 
+    descripcion: 'Me llegó un SMS diciendo que mi paquete estaba retenido en aduana y pedían $50 MXN para liberarlo.', 
+    categoria: 'SMS', 
+    mePaso: 24, 
+    comentarios: 2, 
+    fecha: 'Hace 2 horas' 
+  },
+  { 
+    id: 2, 
+    inicial: 'N', 
+    color: '#2196F3', 
+    autor: 'Nophishing', 
+    titulo: 'Correo falso del Banco Santander', 
+    descripcion: 'Recibí un correo familiar notificándome un cargo retenido.', 
+    categoria: 'Email', 
+    mePaso: 48, 
+    comentarios: 5, 
+    fecha: 'Hace 5 horas' 
+  },
+  { 
+    id: 3, 
+    inicial: 'C', 
+    color: '#00BCD4', 
+    autor: 'Cass.Garcia', 
+    titulo: 'Oferta de trabajo fraudulenta por WhatsApp', 
+    descripcion: 'Me contactaron ofreciéndome ganar dinero por dar likes en YouTube.', 
+    categoria: 'WhatsApp', 
+    mePaso: 89, 
+    comentarios: 15, 
+    fecha: 'Ayer' 
+  },
 ];
 
 export default function App() {
@@ -16,34 +54,48 @@ export default function App() {
   if (!isLoggedIn) {
     return (
       <div className="auth-split-container">
-        {/* Banner Lateral Izquierdo usando el_bueno.png */}
+        {/* Banner Izquierdo */}
         <div className="auth-banner-side">
-          <div>
-            <p style={{ fontSize: '18px', opacity: 0.9, marginTop: '20px', maxWidth: '380px' }}>
-              La plataforma comunitaria para la prevención, detección y reporte de fraudes digitales.
-            </p>
-          </div>
-          <div className="auth-banner-footer">
-            © 2026 Fishy from Equipo3
-          </div>
+          <img 
+            src={fishyLogo} 
+            alt="Fishy Logo" 
+            className="auth-banner-logo" 
+          />
+          <p className="auth-banner-text">
+            La plataforma comunitaria para la prevención, detección y reporte de fraudes digitales y phishing.
+          </p>
         </div>
 
-        {/* Formulario Derecho */}
+        {/* Panel Derecho de Autenticación */}
         <div className="auth-form-side">
           <div className="auth-form-content">
             {authScreen === 'login' && (
               <>
                 <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Iniciar sesión</h2>
-                <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '12px' }}>Ingresa tus credenciales para acceder a la plataforma</p>
+                <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '12px' }}>
+                  Ingresa tus credenciales para acceder a la plataforma
+                </p>
                 
                 <input className="web-input" type="email" placeholder="Correo electrónico" />
                 <input className="web-input" type="password" placeholder="Contraseña" />
                 
-                <button className="btn-primary-web" onClick={() => setIsLoggedIn(true)}>Entrar a la plataforma</button>
+                <button className="btn-primary-web" onClick={() => setIsLoggedIn(true)}>
+                  Entrar a la plataforma
+                </button>
                 
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', fontSize: '13px' }}>
-                  <button style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer' }} onClick={() => setAuthScreen('recover')}>¿Olvidaste tu contraseña?</button>
-                  <button style={{ background: 'none', border: 'none', color: 'var(--figma-dark-blue)', fontWeight: 'bold', cursor: 'pointer' }} onClick={() => setAuthScreen('register')}>Crear cuenta nueva</button>
+                  <button 
+                    style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer' }} 
+                    onClick={() => setAuthScreen('recover')}
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </button>
+                  <button 
+                    style={{ background: 'none', border: 'none', color: 'var(--figma-dark-blue, #0C4775)', fontWeight: 'bold', cursor: 'pointer' }} 
+                    onClick={() => setAuthScreen('register')}
+                  >
+                    Crear cuenta nueva
+                  </button>
                 </div>
               </>
             )}
@@ -51,7 +103,9 @@ export default function App() {
             {authScreen === 'register' && (
               <>
                 <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Crear cuenta</h2>
-                <p style={{ fontSize: '14px', color: '#6b7280' }}>Sé parte de la comunidad de protección digital</p>
+                <p style={{ fontSize: '14px', color: '#6b7280' }}>
+                  Sé parte de la comunidad de protección digital
+                </p>
                 
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <input className="web-input" placeholder="Nombre" />
@@ -61,24 +115,40 @@ export default function App() {
                 <input className="web-input" type="email" placeholder="Correo electrónico" />
                 <input className="web-input" type="password" placeholder="Contraseña" />
                 
-                <button className="btn-primary-web" onClick={() => setIsLoggedIn(true)}>Registrarse</button>
-                <button style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', marginTop: '8px' }} onClick={() => setAuthScreen('login')}>¿Ya tienes cuenta? Inicia sesión</button>
+                <button className="btn-primary-web" onClick={() => setIsLoggedIn(true)}>
+                  Registrarse
+                </button>
+                <button 
+                  style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', marginTop: '8px' }} 
+                  onClick={() => setAuthScreen('login')}
+                >
+                  ¿Ya tienes cuenta? Inicia sesión
+                </button>
               </>
             )}
 
             {authScreen === 'recover' && (
               <>
                 <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Recuperar cuenta</h2>
-                <p style={{ fontSize: '13px', color: '#6b7280' }}>Ingresa tu correo o usuario para recibir un enlace de recuperación.</p>
+                <p style={{ fontSize: '13px', color: '#6b7280' }}>
+                  Ingresa tu correo o usuario para recibir un enlace de recuperación.
+                </p>
                 <input className="web-input" placeholder="Correo o nombre de usuario" />
-                <button className="btn-primary-web" onClick={() => setShowResetAlert(true)}>Enviar enlace</button>
-                <button style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', marginTop: '8px' }} onClick={() => setAuthScreen('login')}>Volver a Inicio de sesión</button>
+                <button className="btn-primary-web" onClick={() => setShowResetAlert(true)}>
+                  Enviar enlace
+                </button>
+                <button 
+                  style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', marginTop: '8px' }} 
+                  onClick={() => setAuthScreen('login')}
+                >
+                  Volver a Inicio de sesión
+                </button>
               </>
             )}
           </div>
         </div>
 
-        {/* Modal de Alerta */}
+        {/* Modal Alerta Restablecimiento */}
         {showResetAlert && (
           <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
             <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
@@ -86,7 +156,11 @@ export default function App() {
               <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '20px' }}>
                 Si existe una cuenta asociada, recibirás un correo con las instrucciones para restablecer tu contraseña.
               </p>
-              <button className="btn-primary-web" style={{ width: '100%' }} onClick={() => { setShowResetAlert(false); setAuthScreen('login'); }}>
+              <button 
+                className="btn-primary-web" 
+                style={{ width: '100%' }} 
+                onClick={() => { setShowResetAlert(false); setAuthScreen('login'); }}
+              >
                 Entendido
               </button>
             </div>
@@ -98,24 +172,36 @@ export default function App() {
 
   return (
     <div className="web-app-container">
-      {/* Sidebar Izquierda con Logo de Diseño */}
+      {/* Sidebar Lateral */}
       <aside className="sidebar">
         <div>
           <div className="brand-header">
-            <img src="/images/el_bueno.png" alt="Fishy Logo" className="brand-logo-img" />
+            <img src={elBuenoLogo} alt="Fishy Logo" className="brand-logo-img" />
           </div>
 
           <nav className="nav-menu">
-            <button className={`nav-item ${activeScreen === 'feed' ? 'active' : ''}`} onClick={() => setActiveScreen('feed')}>
+            <button 
+              className={`nav-item ${activeScreen === 'feed' ? 'active' : ''}`} 
+              onClick={() => setActiveScreen('feed')}
+            >
               <span>🏠</span> Inicio / Feed
             </button>
-            <button className={`nav-item ${activeScreen === 'newReport' ? 'active' : ''}`} onClick={() => setActiveScreen('newReport')}>
+            <button 
+              className={`nav-item ${activeScreen === 'newReport' ? 'active' : ''}`} 
+              onClick={() => setActiveScreen('newReport')}
+            >
               <span>➕</span> Nuevo Reporte
             </button>
-            <button className={`nav-item ${activeScreen === 'readings' ? 'active' : ''}`} onClick={() => setActiveScreen('readings')}>
+            <button 
+              className={`nav-item ${activeScreen === 'readings' ? 'active' : ''}`} 
+              onClick={() => setActiveScreen('readings')}
+            >
               <span>📖</span> Centro de Lecturas
             </button>
-            <button className={`nav-item ${activeScreen === 'settings' ? 'active' : ''}`} onClick={() => setActiveScreen('settings')}>
+            <button 
+              className={`nav-item ${activeScreen === 'settings' ? 'active' : ''}`} 
+              onClick={() => setActiveScreen('settings')}
+            >
               <span>⚙️</span> Configuración
             </button>
           </nav>
@@ -129,13 +215,17 @@ export default function App() {
               <div style={{ fontSize: '11px', color: '#a0aec0' }}>Ver perfil</div>
             </div>
           </div>
-          <button style={{ background: 'none', border: 'none', color: '#fc8181', cursor: 'pointer', fontSize: '16px' }} title="Cerrar sesión" onClick={() => setIsLoggedIn(false)}>
+          <button 
+            style={{ background: 'none', border: 'none', color: '#fc8181', cursor: 'pointer', fontSize: '16px' }} 
+            title="Cerrar sesión" 
+            onClick={() => setIsLoggedIn(false)}
+          >
             🚪
           </button>
         </div>
       </aside>
 
-      {/* Área de Contenido */}
+      {/* Área Principal */}
       <main className="main-wrapper">
         <header className="top-bar">
           <h2 className="page-title">
@@ -152,11 +242,11 @@ export default function App() {
 
         <div className="content-body">
           <div className="content-max-width">
-            {activeScreen === 'feed' && <MainFeedWeb setActiveScreen={setActiveScreen} />}
+            {activeScreen === 'feed' && <MainFeedWeb bgDecor={bgDecor} />}
             {activeScreen === 'readings' && <ReadingsWeb />}
             {activeScreen === 'newReport' && <NewReportWeb setActiveScreen={setActiveScreen} />}
             {activeScreen === 'settings' && <SettingsWeb />}
-            {activeScreen === 'profile' && <ProfileWeb setIsLoggedIn={setIsLoggedIn} setActiveScreen={setActiveScreen} />}
+            {activeScreen === 'profile' && <ProfileWeb setIsLoggedIn={setIsLoggedIn} />}
           </div>
         </div>
       </main>
@@ -164,7 +254,7 @@ export default function App() {
   );
 }
 
-function MainFeedWeb() {
+function MainFeedWeb({ bgDecor }) {
   const [selectedFilter, setSelectedFilter] = useState('Todos');
   const filtros = ['Todos', 'SMS', 'URL', 'Email', 'WhatsApp'];
 
@@ -178,7 +268,11 @@ function MainFeedWeb() {
           </div>
           <div className="filter-pills-web">
             {filtros.map(f => (
-              <button key={f} className={`pill-btn ${selectedFilter === f ? 'active' : ''}`} onClick={() => setSelectedFilter(f)}>
+              <button 
+                key={f} 
+                className={`pill-btn ${selectedFilter === f ? 'active' : ''}`} 
+                onClick={() => setSelectedFilter(f)}
+              >
                 {f}
               </button>
             ))}
@@ -201,10 +295,10 @@ function MainFeedWeb() {
               <span className="category-tag">{r.categoria}</span>
             </div>
 
-            <h3 style={{ fontSize: '16px', color: '#111827' }}>{r.titulo}</h3>
+            <h3 style={{ fontSize: '16px', color: '#111827', margin: '8px 0 4px 0' }}>{r.titulo}</h3>
             <p style={{ fontSize: '13px', color: '#4b5563', lineHeight: '1.5' }}>{r.descripcion}</p>
 
-            <hr style={{ border: 'none', borderTop: '1px solid #f3f4f6', margin: '8px 0' }} />
+            <hr style={{ border: 'none', borderTop: '1px solid #f3f4f6', margin: '12px 0' }} />
 
             <div style={{ display: 'flex', gap: '20px', fontSize: '13px', color: '#6b7280' }}>
               <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#4b5563' }}>👍 {r.mePaso} Me pasó igual</button>
@@ -216,12 +310,12 @@ function MainFeedWeb() {
 
       <div>
         <div className="widget-card">
-          <img src="/images/image.png" alt="Decoración" className="widget-bg-decor" />
+          <img src={bgDecor} alt="Decoración" className="widget-bg-decor" />
           <h4 style={{ fontSize: '15px', marginBottom: '12px' }}>📊 Estadísticas de la Comunidad</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}>
               <span>Reportes hoy:</span>
-              <span style={{ fontWeight: 'bold', color: 'var(--figma-dark-blue)' }}>128</span>
+              <span style={{ fontWeight: 'bold', color: 'var(--figma-dark-blue, #0C4775)' }}>128</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #f3f4f6' }}>
               <span>Modalidad común:</span>
@@ -248,7 +342,7 @@ function ReadingsWeb() {
         <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>Nivel Actual: Cinturón Blanco en Ciberseguridad</h3>
         <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '16px' }}>Completa los módulos para obtener tus insignias de prevención.</p>
         <div style={{ height: '10px', background: '#e5e7eb', borderRadius: '5px', overflow: 'hidden' }}>
-          <div style={{ width: '35%', height: '100%', background: 'var(--figma-dark-blue)' }}></div>
+          <div style={{ width: '35%', height: '100%', background: 'var(--figma-dark-blue, #0C4775)' }}></div>
         </div>
       </div>
 
@@ -310,7 +404,7 @@ function SettingsWeb() {
     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h3 style={{ fontSize: '18px' }}>Preferencias de Cuenta</h3>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <div style={{ padding: '16px', background: 'var(--figma-field-bg)', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: '16px', background: 'var(--figma-field-bg, #f9fafb)', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span>Notificaciones por correo</span>
           <input type="checkbox" defaultChecked />
         </div>
@@ -330,7 +424,10 @@ function ProfileWeb({ setIsLoggedIn }) {
         </div>
       </div>
 
-      <button style={{ background: 'var(--figma-light-red)', color: 'red', border: 'none', padding: '12px', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer', maxWidth: '200px' }} onClick={() => setIsLoggedIn(false)}>
+      <button 
+        style={{ background: '#fee2e2', color: '#dc2626', border: 'none', padding: '12px', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer', maxWidth: '200px' }} 
+        onClick={() => setIsLoggedIn(false)}
+      >
         Cerrar Sesión
       </button>
     </div>
