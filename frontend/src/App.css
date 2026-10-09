@@ -351,3 +351,16 @@ body, #root {
 .btn-primary-web:hover {
   background-color: var(--figma-hover-blue);
 }
+
+.login-error {
+  background: #fdecec;
+  color: #b4232a;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.btn-primary-web:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}

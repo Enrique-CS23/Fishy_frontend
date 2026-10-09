@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { api, borrarTokens, guardarTokens } from './api/client';
 import './App.css';
 
 // Importación directa de imágenes desde src/assets/
@@ -46,11 +47,52 @@ const INITIAL_REPORTS = [
 ];
 
 export default function App() {
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeScreen, setActiveScreen] = useState('feed');
   const [authScreen, setAuthScreen] = useState('login');
   const [showResetAlert, setShowResetAlert] = useState(false);
 
+  const [correo, setCorreo] = useState('');
+  const [contrasena, setContrasena] = useState('');
+  const [error, setError] = useState('');
+  const [enviando, setEnviando] = useState(false);
+
+  async function iniciarSesion(evento) {
+    evento.preventDefault(); 
+    setError('');
+    setEnviando(true);
+
+    try {
+
+      const tokens = await api('/auth/login', {
+        metodo: 'POST',
+        datos: { correo: correo.trim(), contrasena },
+      });
+      guardarTokens(tokens);
+
+      const perfil = await api('/auth/me');
+      if (perfil.rol !== 'admin') {
+        borrarTokens();
+        setError('Esta cuenta no tiene permisos de administrador.');
+        return;
+      }
+
+      setIsLoggedIn(true);
+    } catch (e) {
+      borrarTokens();
+
+      setError(e.message);
+    } finally {
+      setEnviando(false);
+    }
+  }
+
+  function cerrarSesion() {
+
+    borrarTokens();
+    setIsLoggedIn(false);
+  }
   if (!isLoggedIn) {
     return (
       <div className="auth-split-container">
@@ -70,36 +112,36 @@ export default function App() {
         <div className="auth-form-side">
           <div className="auth-form-content">
             {authScreen === 'login' && (
-              <>
+              <form className="auth-form-content" onSubmit={iniciarSesion}>
                 <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Iniciar sesión</h2>
                 <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '12px' }}>
-                  Ingresa tus credenciales para acceder a la plataforma
+                  Acceso exclusivo para administradores de Fishy
                 </p>
-                
-                <input className="web-input" type="email" placeholder="Correo electrónico" />
-                <input className="web-input" type="password" placeholder="Contraseña" />
-                
-                <button className="btn-primary-web" onClick={() => setIsLoggedIn(true)}>
-                  Entrar a la plataforma
-                </button>
-                
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', fontSize: '13px' }}>
-                  <button 
-                    style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer' }} 
-                    onClick={() => setAuthScreen('recover')}
-                  >
-                    ¿Olvidaste tu contraseña?
-                  </button>
-                  <button 
-                    style={{ background: 'none', border: 'none', color: 'var(--figma-dark-blue, #0C4775)', fontWeight: 'bold', cursor: 'pointer' }} 
-                    onClick={() => setAuthScreen('register')}
-                  >
-                    Crear cuenta nueva
-                  </button>
-                </div>
-              </>
-            )}
 
+                {error && <p className="login-error" role="alert">{error}</p>}
+
+                <input
+                  className="web-input"
+                  type="email"
+                  placeholder="Correo electrónico"
+                  required
+                  value={correo}
+                  onChange={(e) => setCorreo(e.target.value)}
+                />
+                <input
+                  className="web-input"
+                  type="password"
+                  placeholder="Contraseña"
+                  required
+                  value={contrasena}
+                  onChange={(e) => setContrasena(e.target.value)}
+                />
+
+                <button type="submit" className="btn-primary-web" disabled={enviando}>
+                  {enviando ? 'Entrando…' : 'Entrar a la plataforma'}
+                </button>
+              </form>
+            )}
             {authScreen === 'register' && (
               <>
                 <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Crear cuenta</h2>
@@ -215,13 +257,13 @@ export default function App() {
               <div style={{ fontSize: '11px', color: '#a0aec0' }}>Ver perfil</div>
             </div>
           </div>
-          <button 
+         <button 
             style={{ background: 'none', border: 'none', color: '#fc8181', cursor: 'pointer', fontSize: '16px' }} 
             title="Cerrar sesión" 
-            onClick={() => setIsLoggedIn(false)}
+            onClick={cerrarSesion}
           >
             🚪
-          </button>
+          </button> 
         </div>
       </aside>
 
