@@ -770,3 +770,146 @@ body, #root {
 .modal-nota {
   margin-top: 18px;
 }
+
+.panel-seccion {
+  margin-bottom: 16px;
+}
+
+.graficas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+:focus-visible {
+  outline: 2px solid #1d8fcb;
+  outline-offset: 2px;
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #0c4775 0%, #061a2e 100%);
+}
+
+.auth-banner-side {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0c4775 0%, #061a2e 100%);
+}
+
+.login-marca {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.login-titulo {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 12px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.auth-banner-text {
+  position: relative;
+  z-index: 1;
+}
+
+.login-olas {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 35%;
+  color: #7cc4ec;
+  pointer-events: none;
+}
+
+.main-wrapper {
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .web-app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  .sidebar > div:first-child {
+    display: contents;
+  }
+
+  .brand-header {
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .sidebar-user {
+    order: 2;
+    padding: 0;
+    background: none;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .nav-menu {
+    order: 3;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 0;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+
+  .top-bar {
+    height: auto;
+    padding: 14px 16px;
+  }
+
+  .page-title {
+    font-size: 17px;
+  }
+
+  .content-body {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 860px) {
+  .auth-split-container {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .auth-banner-side {
+    flex: none;
+    padding: 40px 24px 56px;
+  }
+
+  .auth-form-side {
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 32px 24px;
+    box-shadow: none;
+  }
+}

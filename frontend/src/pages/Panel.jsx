@@ -1,9 +1,13 @@
 import { useReportes } from '../api/useReportes';
 import { EstadoBadge } from '../components/Badges';
 import { formatearFecha } from '../utils/formato';
+import { reportesPorCategoria, reportesPorDia, reportesPorRiesgo } from '../utils/estadisticas';
+import { GraficaPorCategoria, GraficaPorDia, GraficaPorRiesgo } from '../components/Graficas';
 
 export default function Panel() {
-  const { reportes, nombreEstado, nombreRiesgo, cargando, error, recargar } = useReportes();
+  const {
+    reportes, riesgos, categorias, nombreEstado, nombreRiesgo, cargando, error, recargar,
+  } = useReportes();
 
   if (cargando) return <p className="texto-suave">Cargando reportes…</p>;
   if (error) {
@@ -28,6 +32,22 @@ export default function Panel() {
         <Kpi titulo="Aprobados" valor={contarEstado('aprobado')} tono="aprobado" />
         <Kpi titulo="Rechazados" valor={contarEstado('rechazado')} tono="rechazado" />
         <Kpi titulo="Alto riesgo" valor={altoRiesgo} tono="alto" />
+      </div>
+
+      <section className="tarjeta panel-seccion">
+        <h3 className="tarjeta-titulo">Reportes recibidos por día (últimos 14 días)</h3>
+        <GraficaPorDia datos={reportesPorDia(reportes)} />
+      </section>
+
+      <div className="graficas panel-seccion">
+        <section className="tarjeta">
+          <h3 className="tarjeta-titulo">Reportes por categoría</h3>
+          <GraficaPorCategoria datos={reportesPorCategoria(reportes, categorias)} />
+        </section>
+        <section className="tarjeta">
+          <h3 className="tarjeta-titulo">Reportes por nivel de riesgo</h3>
+          <GraficaPorRiesgo datos={reportesPorRiesgo(reportes, riesgos)} />
+        </section>
       </div>
 
       <section className="tarjeta">

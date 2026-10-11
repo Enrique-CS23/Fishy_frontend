@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api, borrarTokens, guardarTokens } from '../api/client';
-import fishyLogo from '../assets/fishy.png';
+import { Fish } from 'lucide-react';
 
 export default function Login() {
   const navegar = useNavigate();
@@ -43,10 +43,19 @@ export default function Login() {
   return (
     <div className="auth-split-container">
       <div className="auth-banner-side">
-        <img src={fishyLogo} alt="Fishy Logo" className="auth-banner-logo" />
+        <div className="login-marca">
+          <Fish size={40} color="#9cc7ef" />
+          <span>Fishy</span>
+        </div>
+        <h1 className="login-titulo">Panel de moderación</h1>
         <p className="auth-banner-text">
-          La plataforma comunitaria para la prevención, detección y reporte de fraudes digitales y phishing.
+          Revisa, clasifica y publica los reportes de fraude y phishing que envía la comunidad.
         </p>
+        <svg className="login-olas" viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 120 C150 80 300 80 450 120 S750 160 900 120 S1100 80 1200 100 V240 H0 Z" fill="currentColor" opacity="0.06" />
+          <path d="M0 160 C200 125 350 130 550 165 S900 200 1050 160 S1150 140 1200 150 V240 H0 Z" fill="currentColor" opacity="0.07" />
+          <path d="M0 200 C180 180 330 185 520 205 S860 230 1020 205 S1140 190 1200 195 V240 H0 Z" fill="currentColor" opacity="0.09" />
+        </svg>
       </div>
 
       <div className="auth-form-side">
