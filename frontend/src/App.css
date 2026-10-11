@@ -258,7 +258,6 @@ body, #root {
   font-weight: bold;
 }
 
-/* Tarjetas de Reportes Desktop */
 .report-card-web {
   background: white;
   border-radius: 16px;
@@ -300,7 +299,6 @@ body, #root {
   border-radius: 6px;
 }
 
-/* Widgets */
 .widget-card {
   background: white;
   border-radius: 16px;
@@ -320,7 +318,6 @@ body, #root {
   pointer-events: none;
 }
 
-/* Form Element Styles */
 .web-input {
   width: 100%;
   padding: 14px;
@@ -364,9 +361,9 @@ body, #root {
   opacity: 0.7;
   cursor: progress;
 }
-/* ── Paso 5: sidebar con links ───────────────────────── */
+
 .nav-item {
-  text-decoration: none; /* ahora son <a>, no <button> */
+  text-decoration: none; 
 }
 
 .user-info,
@@ -403,7 +400,6 @@ body, #root {
   letter-spacing: -0.01em;
 }
 
-/* ── Paso 6: panel ───────────────────────────────────── */
 .texto-suave {
   color: #6b7280;
   font-size: 13px;
@@ -507,3 +503,118 @@ body, #root {
 .badge-medio       { background: #fdf3e1; color: #8f5b0a; }
 .badge-bajo        { background: #e7f6ec; color: #1e7a3d; }
 .badge-sin-riesgo  { background: #edf1f5; color: #55687d; }
+
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.buscador {
+  display: flex;
+  flex: 1 1 280px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  color: #6b7280;
+}
+
+.buscador:focus-within {
+  border-color: var(--figma-dark-blue);
+}
+
+.buscador input {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+.filtros select {
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.resultados {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tabla-contenedor {
+  overflow-x: auto; 
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabla th {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tabla td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla tbody tr:hover {
+  background: #f8fbfe;
+}
+
+.tabla .celda-numero {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.celda-titulo {
+  font-weight: 600;
+  color: #111827;
+}
+
+.chip {
+  display: inline-block;
+  margin: 2px 4px 2px 0;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #eef2f7;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tabla-vacia {
+  padding: 40px;
+  border-radius: 16px;
+  background: white;
+  color: #6b7280;
+  text-align: center;
+}

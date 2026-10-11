@@ -6,3 +6,8 @@ export function formatearFecha(iso) {
     minute: '2-digit',
   });
 }
+
+
+export function capitalizar(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
