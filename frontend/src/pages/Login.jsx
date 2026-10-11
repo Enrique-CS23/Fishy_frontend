@@ -11,19 +11,18 @@ export default function Login() {
   const [enviando, setEnviando] = useState(false);
 
   async function iniciarSesion(evento) {
-    evento.preventDefault(); // evita que el <form> recargue la página
+    evento.preventDefault(); 
     setError('');
     setEnviando(true);
 
     try {
-      // 1) POST /auth/login  ->  { accessToken, refreshToken }
+
       const tokens = await api('/auth/login', {
         metodo: 'POST',
         datos: { correo: correo.trim(), contrasena },
       });
       guardarTokens(tokens);
 
-      // 2) GET /auth/me  ->  { id, correo, rol }   (ya viaja con el token)
       const perfil = await api('/auth/me');
       if (perfil.rol !== 'admin') {
         borrarTokens();
@@ -32,12 +31,10 @@ export default function Login() {
         return;
       }
 
-      // 3) Todo bien: al panel. replace = el login no queda en el historial
       navegar('/', { replace: true });
     } catch (e) {
       borrarTokens();
-      // VULN-S07: se muestra el mensaje del servidor tal cual
-      // ("El usuario no existe" / "Password incorrecto") -> enumeración de usuarios
+
       setError(e.message);
       setEnviando(false);
     }

@@ -364,3 +364,41 @@ body, #root {
   opacity: 0.7;
   cursor: progress;
 }
+/* ── Paso 5: sidebar con links ───────────────────────── */
+.nav-item {
+  text-decoration: none; /* ahora son <a>, no <button> */
+}
+
+.user-info,
+.user-datos {
+  min-width: 0;
+}
+
+.user-correo {
+  font-size: 13px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-salir {
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: #fc8181;
+  cursor: pointer;
+}
+
+.btn-salir:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.brand-nombre {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}

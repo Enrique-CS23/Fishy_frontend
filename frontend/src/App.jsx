@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { api, borrarTokens, guardarTokens } from './api/client';
+// Vistas originales de la app para USUARIOS (feed, nuevo reporte, lecturas, perfil).
+// Ya no se usan en el panel admin, se conservan como referencia del equipo.
+import { useEffect, useState } from 'react';
+import { api, cerrarSesion } from './api/client';
 import './App.css';
 
 // Importación directa de imágenes desde src/assets/
-import fishyLogo from './assets/fishy.png';
 import elBuenoLogo from './assets/el_bueno.png';
 import bgDecor from './assets/image.png';
 
@@ -48,169 +49,18 @@ const INITIAL_REPORTS = [
 
 export default function App() {
   
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeScreen, setActiveScreen] = useState('feed');
-  const [authScreen, setAuthScreen] = useState('login');
-  const [showResetAlert, setShowResetAlert] = useState(false);
+  const [perfil, setPerfil] = useState(null);
 
-  const [correo, setCorreo] = useState('');
-  const [contrasena, setContrasena] = useState('');
-  const [error, setError] = useState('');
-  const [enviando, setEnviando] = useState(false);
 
-  async function iniciarSesion(evento) {
-    evento.preventDefault(); 
-    setError('');
-    setEnviando(true);
-
-    try {
-
-      const tokens = await api('/auth/login', {
-        metodo: 'POST',
-        datos: { correo: correo.trim(), contrasena },
-      });
-      guardarTokens(tokens);
-
-      const perfil = await api('/auth/me');
-      if (perfil.rol !== 'admin') {
-        borrarTokens();
-        setError('Esta cuenta no tiene permisos de administrador.');
-        return;
-      }
-
-      setIsLoggedIn(true);
-    } catch (e) {
-      borrarTokens();
-
-      setError(e.message);
-    } finally {
-      setEnviando(false);
-    }
-  }
-
-  function cerrarSesion() {
-
-    borrarTokens();
-    setIsLoggedIn(false);
-  }
-  if (!isLoggedIn) {
-    return (
-      <div className="auth-split-container">
-        {/* Banner Izquierdo */}
-        <div className="auth-banner-side">
-          <img 
-            src={fishyLogo} 
-            alt="Fishy Logo" 
-            className="auth-banner-logo" 
-          />
-          <p className="auth-banner-text">
-            La plataforma comunitaria para la prevención, detección y reporte de fraudes digitales y phishing.
-          </p>
-        </div>
-
-        {/* Panel Derecho de Autenticación */}
-        <div className="auth-form-side">
-          <div className="auth-form-content">
-            {authScreen === 'login' && (
-              <form className="auth-form-content" onSubmit={iniciarSesion}>
-                <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Iniciar sesión</h2>
-                <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '12px' }}>
-                  Acceso exclusivo para administradores de Fishy
-                </p>
-
-                {error && <p className="login-error" role="alert">{error}</p>}
-
-                <input
-                  className="web-input"
-                  type="email"
-                  placeholder="Correo electrónico"
-                  required
-                  value={correo}
-                  onChange={(e) => setCorreo(e.target.value)}
-                />
-                <input
-                  className="web-input"
-                  type="password"
-                  placeholder="Contraseña"
-                  required
-                  value={contrasena}
-                  onChange={(e) => setContrasena(e.target.value)}
-                />
-
-                <button type="submit" className="btn-primary-web" disabled={enviando}>
-                  {enviando ? 'Entrando…' : 'Entrar a la plataforma'}
-                </button>
-              </form>
-            )}
-            {authScreen === 'register' && (
-              <>
-                <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Crear cuenta</h2>
-                <p style={{ fontSize: '14px', color: '#6b7280' }}>
-                  Sé parte de la comunidad de protección digital
-                </p>
-                
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <input className="web-input" placeholder="Nombre" />
-                  <input className="web-input" placeholder="Apellidos" />
-                </div>
-                <input className="web-input" placeholder="Nombre de usuario" />
-                <input className="web-input" type="email" placeholder="Correo electrónico" />
-                <input className="web-input" type="password" placeholder="Contraseña" />
-                
-                <button className="btn-primary-web" onClick={() => setIsLoggedIn(true)}>
-                  Registrarse
-                </button>
-                <button 
-                  style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', marginTop: '8px' }} 
-                  onClick={() => setAuthScreen('login')}
-                >
-                  ¿Ya tienes cuenta? Inicia sesión
-                </button>
-              </>
-            )}
-
-            {authScreen === 'recover' && (
-              <>
-                <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Recuperar cuenta</h2>
-                <p style={{ fontSize: '13px', color: '#6b7280' }}>
-                  Ingresa tu correo o usuario para recibir un enlace de recuperación.
-                </p>
-                <input className="web-input" placeholder="Correo o nombre de usuario" />
-                <button className="btn-primary-web" onClick={() => setShowResetAlert(true)}>
-                  Enviar enlace
-                </button>
-                <button 
-                  style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', marginTop: '8px' }} 
-                  onClick={() => setAuthScreen('login')}
-                >
-                  Volver a Inicio de sesión
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Modal Alerta Restablecimiento */}
-        {showResetAlert && (
-          <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
-            <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '18px', marginBottom: '12px' }}>Correo enviado</h3>
-              <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '20px' }}>
-                Si existe una cuenta asociada, recibirás un correo con las instrucciones para restablecer tu contraseña.
-              </p>
-              <button 
-                className="btn-primary-web" 
-                style={{ width: '100%' }} 
-                onClick={() => { setShowResetAlert(false); setAuthScreen('login'); }}
-              >
-                Entendido
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
+  useEffect(() => {
+    api('/auth/me')
+      .then((datos) => {
+        if (datos.rol !== 'admin') cerrarSesion();
+        else setPerfil(datos);
+      })
+      .catch((e) => console.log('No se pudo cargar el perfil:', e.message));
+  }, []);
 
   return (
     <div className="web-app-container">
@@ -253,17 +103,17 @@ export default function App() {
           <div className="user-info" style={{ cursor: 'pointer' }} onClick={() => setActiveScreen('profile')}>
             <div className="user-avatar">U</div>
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 'bold' }}>Usuario</div>
+              <div style={{ fontSize: '13px', fontWeight: 'bold' }}>{perfil ? perfil.correo : 'Cargando…'}</div>
               <div style={{ fontSize: '11px', color: '#a0aec0' }}>Ver perfil</div>
             </div>
           </div>
-         <button 
+          <button 
             style={{ background: 'none', border: 'none', color: '#fc8181', cursor: 'pointer', fontSize: '16px' }} 
             title="Cerrar sesión" 
             onClick={cerrarSesion}
           >
             🚪
-          </button> 
+          </button>
         </div>
       </aside>
 
@@ -288,7 +138,7 @@ export default function App() {
             {activeScreen === 'readings' && <ReadingsWeb />}
             {activeScreen === 'newReport' && <NewReportWeb setActiveScreen={setActiveScreen} />}
             {activeScreen === 'settings' && <SettingsWeb />}
-            {activeScreen === 'profile' && <ProfileWeb setIsLoggedIn={setIsLoggedIn} />}
+            {activeScreen === 'profile' && <ProfileWeb setIsLoggedIn={cerrarSesion} />}
           </div>
         </div>
       </main>

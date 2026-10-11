@@ -25,7 +25,6 @@ export function cerrarSesion() {
   window.location.replace('/login');
 }
 
-// ---------- Errores ----------
 export class ApiError extends Error {
   constructor(status, mensaje) {
     super(mensaje);
