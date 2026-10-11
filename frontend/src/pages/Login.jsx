@@ -42,7 +42,6 @@ export default function Login() {
 
   return (
     <div className="auth-split-container">
-      {/* Banner izquierdo (diseño original del equipo) */}
       <div className="auth-banner-side">
         <img src={fishyLogo} alt="Fishy Logo" className="auth-banner-logo" />
         <p className="auth-banner-text">
@@ -50,7 +49,6 @@ export default function Login() {
         </p>
       </div>
 
-      {/* Formulario */}
       <div className="auth-form-side">
         <form className="auth-form-content" onSubmit={iniciarSesion}>
           <h2 style={{ fontSize: '28px', color: '#1f2937' }}>Iniciar sesión</h2>

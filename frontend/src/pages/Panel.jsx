@@ -15,11 +15,10 @@ export default function Panel() {
     );
   }
 
-  // Contamos en el front a partir de GET /reportes (el backend no tiene endpoint de estadísticas)
   const contarEstado = (nombre) =>
     reportes.filter((r) => nombreEstado[r.tieneEstado] === nombre).length;
   const altoRiesgo = reportes.filter((r) => nombreRiesgo[r.tieneRiesgo] === 'Alto').length;
-  const recientes = reportes.slice(0, 5); // el backend ya los manda del más nuevo al más viejo
+  const recientes = reportes.slice(0, 5);
 
   return (
     <>

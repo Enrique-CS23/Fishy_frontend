@@ -7,7 +7,10 @@ export function formatearFecha(iso) {
   });
 }
 
-
 export function capitalizar(texto) {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
+export function desactivarUrl(url) {
+  return url.replace(/^http/i, 'hxxp').replaceAll('.', '[.]');
 }

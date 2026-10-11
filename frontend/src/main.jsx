@@ -14,10 +14,8 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        {/* Pública */}
         <Route path="/login" element={<Login />} />
 
-        {/* Privadas: primero RutaProtegida (¿hay sesión?), luego Layout (sidebar) */}
         <Route element={<RutaProtegida />}>
           <Route element={<Layout />}>
             <Route path="/" element={<Panel />} />
@@ -26,7 +24,6 @@ createRoot(document.getElementById('root')).render(
           </Route>
         </Route>
 
-        {/* Cualquier otra URL -> al inicio */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

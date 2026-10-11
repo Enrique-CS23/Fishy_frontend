@@ -1,8 +1,7 @@
 import { EstadoBadge, RiesgoBadge } from './Badges';
 import { formatearFecha } from '../utils/formato';
 
-
-export default function TablaReportes({ reportes, nombreEstado, nombreRiesgo }) {
+export default function TablaReportes({ reportes, nombreEstado, nombreRiesgo, alSeleccionar }) {
   if (reportes.length === 0) {
     return <p className="tabla-vacia">No hay reportes que coincidan con los filtros.</p>;
   }
@@ -22,7 +21,7 @@ export default function TablaReportes({ reportes, nombreEstado, nombreRiesgo }) 
         </thead>
         <tbody>
           {reportes.map((r) => (
-            <tr key={r.id}>
+            <tr key={r.id} className="fila-clic" onClick={() => alSeleccionar(r)}>
               <td>
                 <div className="celda-titulo">{r.titulo}</div>
                 <div className="texto-suave">{r.autor}</div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { useReportes } from '../api/useReportes';
 import TablaReportes from '../components/TablaReportes';
+import DetalleReporte from '../components/DetalleReporte';
 import { capitalizar } from '../utils/formato';
 
 export default function Reportes() {
@@ -10,11 +11,11 @@ export default function Reportes() {
     nombreEstado, nombreRiesgo, cargando, error, recargar,
   } = useReportes();
 
-
   const [busqueda, setBusqueda] = useState('');
   const [filtroEstado, setFiltroEstado] = useState('');
   const [filtroRiesgo, setFiltroRiesgo] = useState('');
   const [filtroCategoria, setFiltroCategoria] = useState('');
+  const [seleccionado, setSeleccionado] = useState(null);
 
   if (cargando) return <p className="texto-suave">Cargando reportes…</p>;
   if (error) {
@@ -33,7 +34,6 @@ export default function Reportes() {
     if (filtroRiesgo && filtroRiesgo !== 'sin' && r.tieneRiesgo !== filtroRiesgo) return false;
     if (filtroCategoria && !r.categorias.includes(filtroCategoria)) return false;
     if (texto) {
-
       const dondeBuscar = [
         r.titulo,
         r.autor,
@@ -99,7 +99,23 @@ export default function Reportes() {
         reportes={filtrados}
         nombreEstado={nombreEstado}
         nombreRiesgo={nombreRiesgo}
+        alSeleccionar={setSeleccionado}
       />
+
+      {seleccionado && (
+        <DetalleReporte
+          reporte={seleccionado}
+          estados={estados}
+          riesgos={riesgos}
+          nombreEstado={nombreEstado}
+          nombreRiesgo={nombreRiesgo}
+          onCerrar={() => setSeleccionado(null)}
+          onModerado={() => {
+            setSeleccionado(null);
+            recargar();
+          }}
+        />
+      )}
     </>
   );
 }

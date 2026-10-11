@@ -1,6 +1,5 @@
 
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
-
+export const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
 export function guardarTokens({ accessToken, refreshToken }) {
   localStorage.setItem('accessToken', accessToken);
@@ -69,7 +68,6 @@ export async function api(ruta, { metodo = 'GET', datos, reintento = false } = {
   } catch {
     throw new ApiError(0, 'No se pudo conectar con el servidor.');
   }
-
 
   const esLoginORefresh = ruta === '/auth/login' || ruta === '/auth/refresh';
   if (respuesta.status === 401 && !esLoginORefresh && !reintento) {
