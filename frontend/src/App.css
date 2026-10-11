@@ -402,3 +402,108 @@ body, #root {
   font-weight: 700;
   letter-spacing: -0.01em;
 }
+
+/* ── Paso 6: panel ───────────────────────────────────── */
+.texto-suave {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.btn-link {
+  margin-left: 8px;
+  border: none;
+  background: none;
+  color: inherit;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  border-left: 4px solid #cbd5e1;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.kpi-pendiente { border-left-color: #1d8fcb; }
+.kpi-aprobado  { border-left-color: #1ba39c; }
+.kpi-rechazado { border-left-color: #8a9bb0; }
+.kpi-alto      { border-left-color: #e5484d; }
+
+.kpi-titulo {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.kpi-valor {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--figma-dark-blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.tarjeta {
+  padding: 20px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tarjeta-titulo {
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #1f2937;
+}
+
+.lista-recientes {
+  list-style: none;
+}
+
+.lista-recientes li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #f3f4f6;
+}
+
+.lista-recientes li:first-child {
+  border-top: none;
+}
+
+.reciente-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Badges de estado y riesgo */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-pendiente   { background: #e6f2fa; color: #0e5a85; }
+.badge-aprobado    { background: #e2f5f3; color: #0d6e68; }
+.badge-rechazado   { background: #edf1f5; color: #55687d; }
+.badge-alto        { background: #fdecec; color: #b4232a; }
+.badge-medio       { background: #fdf3e1; color: #8f5b0a; }
+.badge-bajo        { background: #e7f6ec; color: #1e7a3d; }
+.badge-sin-riesgo  { background: #edf1f5; color: #55687d; }
