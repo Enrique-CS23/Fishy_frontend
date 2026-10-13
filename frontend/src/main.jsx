@@ -9,6 +9,7 @@ import Layout from './components/Layout.jsx';
 import Panel from './pages/Panel.jsx';
 import PorRevisar from './pages/PorRevisar.jsx';
 import Reportes from './pages/Reportes.jsx';
+import Lecturas from './pages/Lecturas.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/" element={<Panel />} />
             <Route path="/por-revisar" element={<PorRevisar />} />
             <Route path="/reportes" element={<Reportes />} />
+            <Route path="/lecturas" element={<Lecturas />} />
           </Route>
         </Route>
 

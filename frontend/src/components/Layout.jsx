@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Fish, Inbox, LayoutDashboard, LogOut, Table2 } from 'lucide-react';
+import { Fish, Inbox, LayoutDashboard, LogOut, Table2, BookOpen} from 'lucide-react';
 import { api, cerrarSesion } from '../api/client';
 
 const SECCIONES = [
   { ruta: '/', nombre: 'Panel', titulo: 'Resumen de reportes', Icono: LayoutDashboard },
   { ruta: '/por-revisar', nombre: 'Por revisar', titulo: 'Reportes pendientes de moderación', Icono: Inbox },
   { ruta: '/reportes', nombre: 'Reportes', titulo: 'Todos los reportes', Icono: Table2 },
+  { ruta: '/lecturas', nombre: 'Lecturas', titulo: 'Lecturas', Icono: BookOpen},
 ];
 
 export default function Layout() {
