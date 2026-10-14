@@ -1,0 +1,33 @@
+.blob-cursor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.blob-cursor-activo {
+  opacity: 1;
+}
+
+.blob-cursor-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.blob-cursor-fundido {
+  position: absolute;
+  inset: 0;
+  filter: url(#blob-cursor-goo);
+}
+
+.blob-cursor-mancha,
+.blob-cursor-punto {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  will-change: transform;
+}

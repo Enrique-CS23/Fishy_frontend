@@ -10,13 +10,14 @@ import Panel from './pages/Panel.jsx';
 import PorRevisar from './pages/PorRevisar.jsx';
 import Reportes from './pages/Reportes.jsx';
 import Lecturas from './pages/Lecturas.jsx';
+import IntroLogin from './components/IntroLogin.jsx';
 import Usuarios from './pages/Usuarios.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<IntroLogin><Login /></IntroLogin>} />
 
         <Route element={<RutaProtegida />}>
           <Route element={<Layout />}>
