@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Fish, Inbox, LayoutDashboard, LogOut, Table2, BookOpen, Users} from 'lucide-react';
+import { Fish, Inbox, LayoutDashboard, Power, Table2, BookOpen, Users, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { api, cerrarSesion } from '../api/client';
 
 const SECCIONES = [
