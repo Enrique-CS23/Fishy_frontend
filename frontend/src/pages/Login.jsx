@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api, borrarTokens, guardarTokens } from '../api/client';
 import { Fish } from 'lucide-react';
+import BlobCursor from '../components/BlobCursor';
 
 export default function Login() {
   const navegar = useNavigate();
@@ -43,6 +44,8 @@ export default function Login() {
   return (
     <div className="auth-split-container">
       <div className="auth-banner-side">
+        <BlobCursor fillColor="#7cc4ec" innerColor="rgba(255, 255, 255, 0.8)" opacity={0.6} />
+        
         <div className="login-marca">
           <Fish size={40} color="#9cc7ef" />
           <span>Fishy</span>

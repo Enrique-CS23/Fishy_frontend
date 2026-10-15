@@ -45,7 +45,7 @@ export function GraficaPorCategoria({ datos }) {
         <CartesianGrid horizontal={false} stroke={CUADRICULA} />
         <XAxis type="number" allowDecimals={false} tick={TEXTO_EJE} axisLine={false} tickLine={false} />
         <YAxis type="category" dataKey="nombre" tick={TEXTO_EJE} axisLine={false} tickLine={false} width={80} />
-        <Tooltip formatter={formatoReportes} contentStyle={ESTILO_TOOLTIP} itemStyle={TEXTO_TOOLTIP} cursor={{ fill: '#f3f6fa' }} />
+        <Tooltip formatter={formatoReportes} contentStyle={ESTILO_TOOLTIP} itemStyle={TEXTO_TOOLTIP} cursor={false} />
         <Bar dataKey="total" fill="#0c4775" radius={[0, 4, 4, 0]} maxBarSize={24}>
           <LabelList dataKey="total" position="right" style={TEXTO_EJE} />
         </Bar>
@@ -61,7 +61,7 @@ export function GraficaPorRiesgo({ datos }) {
         <CartesianGrid vertical={false} stroke={CUADRICULA} />
         <XAxis dataKey="nombre" tick={TEXTO_EJE} axisLine={false} tickLine={false} />
         <YAxis allowDecimals={false} tick={TEXTO_EJE} axisLine={false} tickLine={false} />
-        <Tooltip formatter={formatoReportes} contentStyle={ESTILO_TOOLTIP} itemStyle={TEXTO_TOOLTIP} cursor={{ fill: '#f3f6fa' }} />
+        <Tooltip formatter={formatoReportes} contentStyle={ESTILO_TOOLTIP} itemStyle={TEXTO_TOOLTIP} cursor={false} />
         <Bar dataKey="total" radius={[4, 4, 0, 0]} maxBarSize={32}>
           {datos.map((fila) => (
             <Cell key={fila.nombre} fill={COLOR_RIESGO[fila.nombre]} />

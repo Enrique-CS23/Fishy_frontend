@@ -185,7 +185,7 @@ body, #root {
 }
 
 .page-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   color: #1f2937;
 }
@@ -459,7 +459,7 @@ body, #root {
 
 .tarjeta-titulo {
   margin-bottom: 12px;
-  font-size: 15px;
+  font-size: 18px;
   color: #1f2937;
 }
 
@@ -536,10 +536,16 @@ body, #root {
 }
 
 .filtros select {
-  padding: 10px 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 36px 10px 12px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  background: white;
+  background-color: white; 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
   font-size: 14px;
   cursor: pointer;
 }
@@ -564,7 +570,7 @@ body, #root {
 }
 
 .tabla th {
-  padding: 12px 16px;
+  padding: 14px 16px;
   border-bottom: 1px solid #e5e7eb;
   background: #f9fafb;
   color: #6b7280;
@@ -619,6 +625,18 @@ body, #root {
 
 .fila-clic {
   cursor: pointer;
+}
+
+.fila-clic {
+  transition: background 0.15s ease;
+}
+
+.tabla tbody tr.fila-clic:hover {
+  background: #d6e9f8;
+}
+
+.tabla tbody tr.fila-clic:hover td:first-child {
+  box-shadow: inset 4px 0 0 #1d8fcb;
 }
 
 .cola-resumen {
@@ -887,7 +905,7 @@ body, #root {
   }
 
   .page-title {
-    font-size: 17px;
+    font-size: 20px;
   }
 
   .content-body {
@@ -914,109 +932,72 @@ body, #root {
   }
 }
 
-/* ---------- Intro del login (BlobCursor + zoom) ---------- */
-.login-escena {
-  width: 100vw;
-  height: 100vh;
-  opacity: 0;
-  transform: scale(0.92);
-  transition: opacity 700ms ease 150ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+.sidebar {
+  transition: width 0.25s ease;
 }
 
-.login-escena-visible {
-  opacity: 1;
-  transform: none;
-}
-
-.intro {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.nav-item {
+  white-space: nowrap;
   overflow: hidden;
-  background: linear-gradient(180deg, #0c4775 0%, #061a2e 100%);
-  color: white;
-  cursor: pointer;
-  transition: transform 900ms cubic-bezier(0.7, 0, 0.84, 0), opacity 600ms ease 300ms;
-  will-change: transform, opacity;
 }
 
-.intro-zoom {
-  transform: scale(5);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.intro-blobs {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 600ms ease;
-}
-
-.intro-blobs-visible {
-  opacity: 1;
-}
-
-.intro-contenido {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  pointer-events: none;
-}
-
-.intro-marca {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 56px;
-  font-weight: 700;
-}
-
-.intro-pista {
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.paginacion {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-top: 20px;
-  padding: 12px 0;
-  flex-wrap: wrap;
-}
-
-.paginacion-botones {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.paginacion-botones button {
-  padding: 8px 12px;
-  border: 1px solid #e5e7eb;
+.btn-colapsar {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  border: none;
   border-radius: 8px;
-  background: #0f4567;
-  color: white;
+  background: none;
+  color: #cce0f0;
   cursor: pointer;
 }
 
-.paginacion-botones button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.btn-colapsar:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 480px) {
-  .paginacion {
-    flex-direction: column;
-    align-items: flex-start;
+@media (min-width: 901px) {
+  .sidebar-colapsado {
+    width: 76px;
+    padding: 24px 10px;
   }
+
+  .sidebar-colapsado .brand-header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0 16px;
+  }
+
+  .sidebar-colapsado .btn-colapsar {
+    margin-left: 0;
+  }
+
+  .sidebar-colapsado .brand-nombre,
+  .sidebar-colapsado .nav-texto,
+  .sidebar-colapsado .user-datos {
+    display: none;
+  }
+
+  .sidebar-colapsado .nav-item {
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .sidebar-colapsado .sidebar-user {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 4px;
+  }
+}
+
+@media (max-width: 900px) {
+  .btn-colapsar {
+    display: none;
+  }
+}
+
+.recharts-wrapper,
+.recharts-wrapper *:focus {
+  outline: none;
 }
