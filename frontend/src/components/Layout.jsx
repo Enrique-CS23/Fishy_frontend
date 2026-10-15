@@ -13,6 +13,14 @@ const SECCIONES = [
 
 export default function Layout() {
   const [perfil, setPerfil] = useState(null);
+  const [colapsado, setColapsado] = useState(
+    () => localStorage.getItem('sidebar-colapsado') === '1',
+  );
+
+  useEffect(() => {
+    localStorage.setItem('sidebar-colapsado', colapsado ? '1' : '0');
+  }, [colapsado]);
+
   const { pathname } = useLocation();
   const seccionActual = SECCIONES.find((s) => s.ruta === pathname) ?? SECCIONES[0];
 
@@ -27,18 +35,27 @@ export default function Layout() {
 
   return (
     <div className="web-app-container">
-      <aside className="sidebar">
+      <aside className={`sidebar ${colapsado ? 'sidebar-colapsado' : ''}`}>
         <div>
           <div className="brand-header">
             <Fish size={26} color="#9cc7ef" />
             <span className="brand-nombre">Fishy</span>
-          </div>
+           <button
+              className="btn-colapsar"
+              onClick={() => setColapsado((c) => !c)}
+              title={colapsado ? 'Expandir panel' : 'Reducir panel'}
+              aria-label={colapsado ? 'Expandir panel' : 'Reducir panel'}
+            >
+
+           {colapsado ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+          </button>
+        </div>
 
           <nav className="nav-menu">
             {SECCIONES.map(({ ruta, nombre, Icono }) => (
-              <NavLink key={ruta} to={ruta} end className="nav-item">
+              <NavLink key={ruta} to={ruta} end className="nav-item" title={nombre}>
                 <Icono size={18} />
-                {nombre}
+                  <span className="nav-texto">{nombre}</span>
               </NavLink>
             ))}
           </nav>
