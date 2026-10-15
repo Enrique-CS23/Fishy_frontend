@@ -99,10 +99,10 @@ export default function BlobCursor({
         ))}
       </div>
 
-      {innerSizes.map((tam, hola) => (
+      {innerSizes.map((tam, i) => (
         <div
-          key={hola}
-          ref={(nodo) => { puntos.current[hola] = nodo; }}
+          key={i}
+          ref={(nodo) => { puntos.current[i] = nodo; }}
           className="blob-cursor-punto"
           style={{ width: tam, height: tam, background: innerColor }}
         />
