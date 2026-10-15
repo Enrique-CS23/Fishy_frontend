@@ -49,7 +49,12 @@ export default function DetalleReporte({
 
   return (
     <div className="modal-fondo" onClick={onCerrar}>
-      <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+      <dialog
+        className="modal"
+        open
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+      >
         <header className="modal-encabezado">
           <div>
             <h3>{reporte.titulo}</h3>
@@ -119,7 +124,7 @@ export default function DetalleReporte({
             Este reporte ya fue moderado. El backend no permite cambiar la decisión.
           </p>
         )}
-      </div>
+      </dialog>
     </div>
   );
 }
