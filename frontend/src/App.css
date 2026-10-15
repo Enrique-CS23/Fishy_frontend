@@ -931,3 +931,73 @@ body, #root {
     box-shadow: none;
   }
 }
+
+.sidebar {
+  transition: width 0.25s ease;
+}
+
+.nav-item {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.btn-colapsar {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: #cce0f0;
+  cursor: pointer;
+}
+
+.btn-colapsar:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 901px) {
+  .sidebar-colapsado {
+    width: 76px;
+    padding: 24px 10px;
+  }
+
+  .sidebar-colapsado .brand-header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0 16px;
+  }
+
+  .sidebar-colapsado .btn-colapsar {
+    margin-left: 0;
+  }
+
+  .sidebar-colapsado .brand-nombre,
+  .sidebar-colapsado .nav-texto,
+  .sidebar-colapsado .user-datos {
+    display: none;
+  }
+
+  .sidebar-colapsado .nav-item {
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .sidebar-colapsado .sidebar-user {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 4px;
+  }
+}
+
+@media (max-width: 900px) {
+  .btn-colapsar {
+    display: none;
+  }
+}
+
+.recharts-wrapper,
+.recharts-wrapper *:focus {
+  outline: none;
+}
