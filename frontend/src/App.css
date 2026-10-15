@@ -983,3 +983,40 @@ body, #root {
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.7);
 }
+
+.paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 12px 0;
+  flex-wrap: wrap;
+}
+
+.paginacion-botones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paginacion-botones button {
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #0f4567;
+  color: white;
+  cursor: pointer;
+}
+
+.paginacion-botones button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .paginacion {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
