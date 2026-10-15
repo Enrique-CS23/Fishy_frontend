@@ -627,6 +627,18 @@ body, #root {
   cursor: pointer;
 }
 
+.fila-clic {
+  transition: background 0.15s ease;
+}
+
+.tabla tbody tr.fila-clic:hover {
+  background: #d6e9f8;
+}
+
+.tabla tbody tr.fila-clic:hover td:first-child {
+  box-shadow: inset 4px 0 0 #1d8fcb;
+}
+
 .cola-resumen {
   margin-bottom: 12px;
 }
