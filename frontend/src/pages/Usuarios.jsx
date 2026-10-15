@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Search, Trash2, X } from 'lucide-react';
 import { api } from '../api/client';
 import { formatearFecha } from '../utils/formato';
-import HoldButton from '../components/HoldButton';
 
 export default function Usuarios() {
   const [usuarios, setUsuarios] = useState([]);
@@ -134,7 +133,7 @@ function ConfirmarEliminar({ usuario, onCerrar, onEliminado }) {
     setEliminando(true);
     try {
       await api(`/usuarios/${usuario.id}`, { metodo: 'DELETE' });
-      setTimeout(() => onEliminado(usuario.id), 1200);
+      onEliminado(usuario.id);
     } catch (e) {
       setError(e.message);
       setEliminando(false);
@@ -159,7 +158,7 @@ function ConfirmarEliminar({ usuario, onCerrar, onEliminado }) {
 
         <p className="modal-nota">
           ¿Seguro que quieres eliminar a <strong>{usuario.nombre}</strong> ({usuario.correo})?
-          No se revertirá la acción. Mantén presionado el botón para confirmar.
+          No se revertirá la acción.
         </p>
 
         {error && <p className="login-error" role="alert">{error}</p>}
@@ -168,26 +167,9 @@ function ConfirmarEliminar({ usuario, onCerrar, onEliminado }) {
           <button className="btn-primary-web" onClick={cerrar} disabled={eliminando}>
             Cancelar
           </button>
-                    <HoldButton
-            doneLabel="Eliminado"
-            backgroundColor="#2e2e32"
-            fillColor="#EF4444"
-            textColor="#f5f5f5"
-            fillTextColor="#ffffff"
-            size="sm"
-            radius={12}
-            fillDirection="right"
-            holdTime={2000}
-            releaseTime={220}
-            pressScale={0.97}
-            wave
-            waveAmplitude={7}
-            glow
-            resetAfter={1200}
-            onHold={confirmar}
-          >
-            Mantén para eliminar
-          </HoldButton>
+          <button className="btn-rechazar" onClick={confirmar} disabled={eliminando}>
+            {eliminando ? 'Eliminando…' : 'Sí, eliminar'}
+          </button>
         </div>
       </div>
     </div>
