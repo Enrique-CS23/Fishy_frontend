@@ -13,6 +13,7 @@ const SECCIONES = [
 
 export default function Layout() {
   const [perfil, setPerfil] = useState(null);
+  const [errorPerfil, setErrorPerfil] = useState(false);
   const [colapsado, setColapsado] = useState(
     () => localStorage.getItem('sidebar-colapsado') === '1',
   );
@@ -30,7 +31,8 @@ export default function Layout() {
         if (datos.rol !== 'admin') cerrarSesion();
         else setPerfil(datos);
       })
-      .catch((e) => console.log('No se pudo cargar el perfil:', e.message));
+      // Sin console.log: el error se muestra en la barra lateral, no en la consola.
+      .catch(() => setErrorPerfil(true));
   }, []);
 
   return (
@@ -65,7 +67,7 @@ export default function Layout() {
           <div className="user-info">
             <div className="user-avatar">{perfil ? perfil.correo[0].toUpperCase() : '·'}</div>
             <div className="user-datos">
-              <div className="user-correo">{perfil ? perfil.correo : 'Cargando…'}</div>
+              <div className="user-correo">{perfil ? perfil.correo : errorPerfil ? 'No se pudo cargar el perfil' : 'Cargando…'}</div>
               <div style={{ fontSize: '11px', color: '#a0aec0' }}>Administrador</div>
             </div>
           </div>

@@ -16,29 +16,29 @@ export default function Usuarios() {
 
   const usuariosPorPagina = 10;
 
-  async function cargar() {
-    setCargando(true);
-    setError('');
-
-    try {
-      const [lista, yo] = await Promise.all([
-        api('/usuarios'),
-        api('/usuarios/me'),
-      ]);
-
-      setMiId(yo.id);
-      setUsuarios(lista.filter((u) => u.id !== yo.id));
-      setPagina(1);
-    } catch (e) {
-      setError(e.message);
-    } finally {
-      setCargando(false);
-    }
+  // El estado solo cambia dentro de los callbacks de la promesa:
+  // así no hay setState síncrono dentro del useEffect (regla react-hooks/set-state-in-effect).
+  function cargar() {
+    return Promise.all([api('/usuarios'), api('/usuarios/me')])
+      .then(([lista, yo]) => {
+        setMiId(yo.id);
+        setUsuarios(lista.filter((u) => u.id !== yo.id));
+        setPagina(1);
+        setError('');
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setCargando(false));
   }
 
   useEffect(() => {
     cargar();
   }, []);
+
+  function reintentar() {
+    setCargando(true);
+    setError('');
+    cargar();
+  }
 
   const texto = busqueda.trim().toLowerCase();
 
@@ -64,7 +64,7 @@ export default function Usuarios() {
     return (
       <p className="login-error">
         {error}
-        <button className="btn-link" onClick={cargar}>
+        <button className="btn-link" onClick={reintentar}>
           Reintentar
         </button>
       </p>

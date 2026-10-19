@@ -8,20 +8,25 @@ export default function Lecturas() {
   const [error, setError] = useState('');
   const [abierto, setAbierto] = useState(false);
 
-  async function cargar() {
-    setCargando(true);
-    setError('');
-    try {
-      const datos = await api('/lecturas'); 
-      setLecturas([...datos].sort((a, b) => a.orden - b.orden));
-    } catch (e) {
-      setError(e.message);
-    } finally {
-      setCargando(false);
-    }
+  // El estado solo cambia dentro de los callbacks de la promesa:
+  // así no hay setState síncrono dentro del useEffect (regla react-hooks/set-state-in-effect).
+  function cargar() {
+    return api('/lecturas')
+      .then((datos) => {
+        setLecturas([...datos].sort((a, b) => a.orden - b.orden));
+        setError('');
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setCargando(false));
   }
 
   useEffect(() => { cargar(); }, []);
+
+  function recargar() {
+    setCargando(true);
+    setError('');
+    cargar();
+  }
 
   const siguienteOrden = lecturas.length ? Math.max(...lecturas.map((l) => l.orden)) + 1 : 1;
 
@@ -42,7 +47,7 @@ export default function Lecturas() {
       {error && (
         <p className="login-error">
           {error}
-          <button className="btn-link" onClick={cargar}>Reintentar</button>
+          <button className="btn-link" onClick={recargar}>Reintentar</button>
         </p>
       )}
 
@@ -73,7 +78,7 @@ export default function Lecturas() {
         <NuevaLecturaModal
           siguienteOrden={siguienteOrden}
           onCerrar={() => setAbierto(false)}
-          onCreada={() => { setAbierto(false); cargar(); }}
+          onCreada={() => { setAbierto(false); recargar(); }}
         />
       )}
     </>
