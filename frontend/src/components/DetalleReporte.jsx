@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X } from 'lucide-react';
+import { MessageSquare, Users, X } from 'lucide-react';
 import { api, API } from '../api/client';
 import { EstadoBadge, RiesgoBadge } from './Badges';
 import { desactivarUrl, formatearFecha } from '../utils/formato';
@@ -12,6 +12,18 @@ export default function DetalleReporte({
   const [riesgoElegido, setRiesgoElegido] = useState('');
   const [enviando, setEnviando] = useState(false);
   const [error, setError] = useState('');
+  const [comentarios, setComentarios] = useState([]);
+  const [cargandoComentarios, setCargandoComentarios] = useState(true);
+  const [errorComentarios, setErrorComentarios] = useState('');
+
+  // Comentarios del reporte. El estado solo cambia dentro de los callbacks de la promesa
+  // (regla react-hooks/set-state-in-effect).
+  useEffect(() => {
+    api(`/reportes/${reporte.id}/comentarios`)
+      .then((lista) => setComentarios(lista))
+      .catch((e) => setErrorComentarios(e.message))
+      .finally(() => setCargandoComentarios(false));
+  }, [reporte.id]);
 
   useEffect(() => {
     function alPresionarTecla(e) {
@@ -88,6 +100,37 @@ export default function DetalleReporte({
             )}
           </div>
         ))}
+
+        <div className="interaccion">
+          <span className="interaccion-dato">
+            <Users size={16} />
+            <strong>{reporte.mePasoIgualCount}</strong> les pasó igual
+          </span>
+          <span className="interaccion-dato">
+            <MessageSquare size={16} />
+            <strong>{cargandoComentarios ? (reporte.comentariosCount ?? '…') : comentarios.length}</strong> comentarios
+          </span>
+        </div>
+
+        <h4 className="modal-subtitulo">Comentarios</h4>
+        {cargandoComentarios && <p className="texto-suave">Cargando comentarios…</p>}
+        {errorComentarios && <p className="login-error">{errorComentarios}</p>}
+        {!cargandoComentarios && !errorComentarios && comentarios.length === 0 && (
+          <p className="texto-suave">Este reporte todavía no tiene comentarios.</p>
+        )}
+        {comentarios.length > 0 && (
+          <ul className="comentarios">
+            {comentarios.map((c) => (
+              <li key={c.id} className="comentario">
+                <div className="comentario-meta">
+                  <strong>{c.autor}</strong>
+                  <span className="texto-suave">{formatearFecha(c.fecha_creado)}</span>
+                </div>
+                <p>{c.contenido}</p>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {esPendiente ? (
           <section className="moderacion">
