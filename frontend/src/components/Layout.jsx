@@ -25,6 +25,10 @@ export default function Layout() {
   const { pathname } = useLocation();
   const seccionActual = SECCIONES.find((s) => s.ruta === pathname) ?? SECCIONES[0];
 
+  let textoCorreo = 'Cargando…';
+  if (perfil) textoCorreo = perfil.correo;
+  else if (errorPerfil) textoCorreo = 'No se pudo cargar el perfil';
+
   useEffect(() => {
     api('/auth/me')
       .then((datos) => {
@@ -67,7 +71,7 @@ export default function Layout() {
           <div className="user-info">
             <div className="user-avatar">{perfil ? perfil.correo[0].toUpperCase() : '·'}</div>
             <div className="user-datos">
-              <div className="user-correo">{perfil ? perfil.correo : errorPerfil ? 'No se pudo cargar el perfil' : 'Cargando…'}</div>
+              <div className="user-correo">{textoCorreo}</div>
               <div style={{ fontSize: '11px', color: '#a0aec0' }}>Administrador</div>
             </div>
           </div>

@@ -60,12 +60,13 @@ export default function DetalleReporte({
   }
 
   return (
-    <div className="modal-fondo" onClick={onCerrar}>
+    <div className="modal-fondo">
+      {/* Clic afuera del modal = cerrar. Es un <button> real para que también funcione con teclado. */}
+      <button type="button" className="modal-fondo-cerrar" aria-label="Cerrar" tabIndex={-1} onClick={onCerrar} />
       <dialog
         className="modal"
         open
         aria-modal="true"
-        onClick={(e) => e.stopPropagation()}
       >
         <header className="modal-encabezado">
           <div>

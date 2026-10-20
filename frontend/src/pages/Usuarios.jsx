@@ -31,13 +31,13 @@ export default function Usuarios() {
   }
 
   useEffect(() => {
-    cargar();
+    void cargar();
   }, []);
 
   function reintentar() {
     setCargando(true);
     setError('');
-    cargar();
+    void cargar();
   }
 
   const texto = busqueda.trim().toLowerCase();
@@ -235,13 +235,13 @@ function ConfirmarEliminar({ usuario, onCerrar, onEliminado }) {
   }
 
   return (
-    <div className="modal-fondo" onClick={cerrar}>
+    <div className="modal-fondo">
+      <button type="button" className="modal-fondo-cerrar" aria-label="Cerrar" tabIndex={-1} onClick={cerrar} />
       <div
         className="modal"
         style={{ maxWidth: 440 }}
         role="alertdialog"
         aria-labelledby="titulo-eliminar"
-        onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-encabezado">
           <h3 id="titulo-eliminar">Eliminar usuario</h3>

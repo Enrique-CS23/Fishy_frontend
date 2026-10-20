@@ -36,8 +36,10 @@ body, #root {
 }
 
 .auth-banner-side {
+  position: relative;
+  overflow: hidden;
   flex: 1;
-  background-color: var(--figma-dark-blue);
+  background: linear-gradient(180deg, #0c4775 0%, #061a2e 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,6 +58,8 @@ body, #root {
 }
 
 .auth-banner-text {
+  position: relative;
+  z-index: 1;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.85);
   max-width: 420px;
@@ -88,7 +92,8 @@ body, #root {
 /* Sidebar Lateral */
 .sidebar {
   width: 260px;
-  background-color: var(--figma-dark-blue);
+  background: linear-gradient(180deg, #0c4775 0%, #061a2e 100%);
+  transition: width 0.25s ease;
   color: white;
   display: flex;
   flex-direction: column;
@@ -130,6 +135,9 @@ body, #root {
   font-weight: 500;
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
   transition: all 0.2s ease;
 }
 
@@ -176,6 +184,7 @@ body, #root {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -365,10 +374,6 @@ body, #root {
 .btn-primary-web:disabled {
   opacity: 0.7;
   cursor: progress;
-}
-
-.nav-item {
-  text-decoration: none; 
 }
 
 .user-info,
@@ -645,9 +650,6 @@ body, #root {
 
 .fila-clic {
   cursor: pointer;
-}
-
-.fila-clic {
   transition: background 0.15s ease;
 }
 
@@ -674,9 +676,18 @@ body, #root {
   background: rgba(6, 26, 46, 0.55);
 }
 
+.modal-fondo-cerrar {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
 .modal {
   /* <dialog> trae por defecto position: absolute, margen y borde negro: se anulan para que quede centrado */
   position: relative;
+  z-index: 1;
   inset: auto;
   margin: 0;
   border: 1px solid var(--borde);
@@ -830,16 +841,6 @@ body, #root {
   outline-offset: 2px;
 }
 
-.sidebar {
-  background: linear-gradient(180deg, #0c4775 0%, #061a2e 100%);
-}
-
-.auth-banner-side {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, #0c4775 0%, #061a2e 100%);
-}
-
 .login-marca {
   position: relative;
   z-index: 1;
@@ -859,11 +860,6 @@ body, #root {
   font-weight: 600;
 }
 
-.auth-banner-text {
-  position: relative;
-  z-index: 1;
-}
-
 .login-olas {
   position: absolute;
   left: 0;
@@ -872,10 +868,6 @@ body, #root {
   height: 35%;
   color: #7cc4ec;
   pointer-events: none;
-}
-
-.main-wrapper {
-  min-height: 0;
 }
 
 @media (max-width: 900px) {
@@ -956,15 +948,6 @@ body, #root {
     padding: 32px 24px;
     box-shadow: none;
   }
-}
-
-.sidebar {
-  transition: width 0.25s ease;
-}
-
-.nav-item {
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .btn-colapsar {

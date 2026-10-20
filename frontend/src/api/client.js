@@ -1,9 +1,20 @@
 
 export const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
+// Un JWT son tres partes base64url separadas por puntos. Solo se guarda en localStorage
+// algo con ese formato, nunca un valor arbitrario (Browser Storage Poisoning).
+const FORMATO_JWT = /^[\w-]+\.[\w-]+\.[\w-]+$/;
+
+function validarToken(token) {
+  if (typeof token !== 'string' || !FORMATO_JWT.test(token)) {
+    throw new Error('El servidor respondió un token con formato inválido.');
+  }
+  return token;
+}
+
 export function guardarTokens({ accessToken, refreshToken }) {
-  localStorage.setItem('accessToken', accessToken);
-  if (refreshToken) localStorage.setItem('refreshToken', refreshToken);
+  localStorage.setItem('accessToken', validarToken(accessToken));
+  if (refreshToken) localStorage.setItem('refreshToken', validarToken(refreshToken));
 }
 
 export function obtenerAccessToken() {

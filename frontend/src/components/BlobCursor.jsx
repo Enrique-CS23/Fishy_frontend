@@ -73,6 +73,10 @@ export default function BlobCursor({
     };
   }, [sizes, innerSizes, speeds]);
 
+  // Ids estables para las keys de React (en lugar de usar el índice directamente).
+  const idsManchas = sizes.map((_, n) => `mancha-${n}`);
+  const idsPuntos = innerSizes.map((_, n) => `punto-${n}`);
+
   return (
     <div ref={contenedor} className="blob-cursor" aria-hidden="true">
       <svg className="blob-cursor-svg" width="0" height="0">
@@ -91,7 +95,7 @@ export default function BlobCursor({
       <div className="blob-cursor-fundido" style={{ opacity }}>
         {sizes.map((tam, i) => (
           <div
-            key={i}
+            key={idsManchas[i]}
             ref={(nodo) => { manchas.current[i] = nodo; }}
             className="blob-cursor-mancha"
             style={{ width: tam, height: tam, background: fillColor }}
@@ -101,7 +105,7 @@ export default function BlobCursor({
 
       {innerSizes.map((tam, i) => (
         <div
-          key={i}
+          key={idsPuntos[i]}
           ref={(nodo) => { puntos.current[i] = nodo; }}
           className="blob-cursor-punto"
           style={{ width: tam, height: tam, background: innerColor }}

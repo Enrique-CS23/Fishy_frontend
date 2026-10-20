@@ -20,12 +20,12 @@ export default function Lecturas() {
       .finally(() => setCargando(false));
   }
 
-  useEffect(() => { cargar(); }, []);
+  useEffect(() => { void cargar(); }, []);
 
   function recargar() {
     setCargando(true);
     setError('');
-    cargar();
+    void cargar();
   }
 
   const siguienteOrden = lecturas.length ? Math.max(...lecturas.map((l) => l.orden)) + 1 : 1;
@@ -113,8 +113,9 @@ function NuevaLecturaModal({ siguienteOrden, onCerrar, onCreada }) {
   }
 
   return (
-    <div className="modal-fondo" onClick={onCerrar}>
-      <form className="modal" onClick={(e) => e.stopPropagation()} onSubmit={guardar}>
+    <div className="modal-fondo">
+      <button type="button" className="modal-fondo-cerrar" aria-label="Cerrar" tabIndex={-1} onClick={onCerrar} />
+      <form className="modal" onSubmit={guardar}>
         <div className="modal-encabezado">
           <h3>Nueva lectura</h3>
           <button type="button" className="btn-icono" onClick={onCerrar} aria-label="Cerrar">
